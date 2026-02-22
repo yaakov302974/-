@@ -1026,47 +1026,41 @@ function collectRows(containerId, fields) {
   });
 }
 
-function collectAllData() {
-  return {
-    // מוציאים הכל החוצה מה"client" שיהיה ישר בתוך הנתונים
-    taxYear: document.getElementById('taxYear').value,
-    name: document.getElementById('name').value,
-    id_num: document.getElementById('id_num').value,
-    spouse_name: document.getElementById('spouse_name').value,
-    spouse_id: document.getElementById('spouse_id').value,
-    phone: document.getElementById('phone').value,
-    email: document.getElementById('email').value,
-    children: document.getElementById('children').value,
-    notes: document.getElementById('generalNotes').value,
-    },
-    banks: collectRows('bankRows', [
-      {key:'bank', cls:'bank-name'}, {key:'account', cls:'bank-account'},
-      {key:'type', cls:'bank-type'}, {key:'balance', cls:'bank-balance'}
-    ]),
-    realEstate: collectRows('realEstateRows', [
-      {key:'address', cls:'re-address'}, {key:'type', cls:'re-type'},
-      {key:'year', cls:'re-year'}, {key:'cost', cls:'re-cost'}
-    ]),
-    vehicles: collectRows('vehicleRows', [
-      {key:'model', cls:'v-model'}, {key:'year', cls:'v-year'},
-      {key:'plate', cls:'v-plate'}, {key:'price', cls:'v-price'}
-    ]),
-    contents: collectRows('contentRows', [
-      {key:'desc', cls:'c-desc'}, {key:'category', cls:'c-cat'}, {key:'value', cls:'c-value'}
-    ]),
-    debts: collectRows('debtRows', [
-      {key:'lender', cls:'d-lender'}, {key:'type', cls:'d-type'},
-      {key:'balance', cls:'d-balance'}, {key:'endDate', cls:'d-end'}
-    ]),
-    other: collectRows('otherRows', [
-      {key:'desc', cls:'o-desc'}, {key:'type', cls:'o-type'}, {key:'value', cls:'o-val'}
-    ]),
-    notes: document.getElementById('generalNotes').value,
-    filesSummary: Object.fromEntries(
-      Object.entries(uploadedFiles).map(([k,v]) => [k, v.map(f => f.name)])
-    ),
-    submittedAt: new Date().toLocaleString('he-IL')
-  };
+const SHEET_ID = '1_ySID7I4pRuTTpW-mwkJhzj9cGgJwxm97NANf0u5FOw'; 
+const SHEET_NAME = 'הצהרות הון';
+
+function doPost(e) {
+  try {
+    const data = JSON.parse(e.postData.contents);
+    data.submittedAt = new Date().toLocaleString('he-IL');
+
+    const ss = SpreadsheetApp.openById(SHEET_ID);
+    let summarySheet = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
+
+    // רישום בגיליון הראשי
+    summarySheet.appendRow([
+      data.taxYear, data.submittedAt, data.name, data.id_num, 
+      data.phone, data.email, data.notes
+    ]);
+
+    // יצירת טאב פירוט - הגנה מפני קריסה
+    const detailName = ((data.name || 'לקוח') + ' ' + (data.taxYear || '')).substring(0, 30);
+    let detailSheet = ss.getSheetByName(detailName);
+    
+    if (detailSheet) {
+      // במקום למחוק (שעלול להפיל את הסקריפט), פשוט ננקה אותו
+      detailSheet.clear();
+    } else {
+      detailSheet = ss.insertSheet(detailName);
+    }
+
+    detailSheet.appendRow(['פירוט הצהרת הון - ' + data.name]);
+    detailSheet.appendRow(['בנקים:', JSON.stringify(data.banks)]);
+    
+    return ContentService.createTextOutput("Success").setMimeType(ContentService.MimeType.TEXT);
+  } catch (err) {
+    return ContentService.createTextOutput("Error: " + err.message).setMimeType(ContentService.MimeType.TEXT);
+  }
 }
 
 // ===== SUBMIT =====
