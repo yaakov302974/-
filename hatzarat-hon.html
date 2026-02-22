@@ -6,91 +6,287 @@
 <title>הצהרת הון — טופס לקוח</title>
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&family=Frank+Ruhl+Libre:wght@300;400;700&display=swap" rel="stylesheet">
 <style>
-  :root { --ink: #1a1a2e; --paper: #f5f0e8; --gold: #c9a84c; --gold-light: #e8d5a3; --deep: #0f3460; --accent: #e94560; --muted: #6b6b7b; --border: #d4c9b0; --success: #2d6a4f; --card: #fffdf7; }
+  :root {
+    --ink: #1a1a2e;
+    --paper: #f5f0e8;
+    --gold: #c9a84c;
+    --gold-light: #e8d5a3;
+    --deep: #0f3460;
+    --muted: #6b6b7b;
+    --border: #d4c9b0;
+    --card: #fffdf7;
+  }
+
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Heebo', sans-serif; background: var(--paper); color: var(--ink); min-height: 100vh; background-image: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%), radial-gradient(ellipse at 80% 20%, rgba(15,52,96,0.06) 0%, transparent 50%); }
-  .header { background: var(--deep); padding: 40px 60px; position: relative; overflow: hidden; }
-  .header-inner { max-width: 860px; margin: 0 auto; position: relative; z-index: 1; }
-  .firm-name { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; letter-spacing: 3px; color: var(--gold); margin-bottom: 12px; }
-  .header h1 { font-family: 'Frank Ruhl Libre', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; color: #fff; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--deep);
+    padding: 40px 60px;
+    text-align: center;
+  }
+  .firm-name {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .header h1 {
+    font-family: 'Frank Ruhl Libre', serif;
+    font-size: 32px;
+    color: #fff;
+  }
   .header h1 span { color: var(--gold); }
-  .header-sub { color: rgba(255,255,255,0.6); font-size: 15px; margin-top: 12px; }
-  .progress-bar { background: var(--deep); padding: 0 60px 24px; border-bottom: 1px solid rgba(201,168,76,0.3); }
-  .progress-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 6px; align-items: center; }
-  .step-dot { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 11px; color: rgba(255,255,255,0.4); cursor: pointer; }
-  .step-dot.active { background: var(--gold); border-color: var(--gold); color: var(--deep); font-weight: 700; }
-  .step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.15); }
-  .main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
-  .section { display: none; animation: fadeSlide 0.4s ease; }
+
+  /* MAIN CONTENT */
+  .main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .section { display: none; }
   .section.active { display: block; }
-  @keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 20px; }
-  .field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+
+  .card-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+  }
+
+  .field-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 600px) { .field-group { grid-template-columns: 1fr; } }
+
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field label { font-size: 13px; font-weight: 500; }
-  .field input, .field select, .field textarea { border: 1.5px solid var(--border); border-radius: 8px; padding: 10px; }
-  .btn { padding: 12px 32px; border-radius: 8px; cursor: pointer; font-weight: 500; border: none; }
-  .btn-primary { background: var(--deep); color: #fff; }
+  .field input, .field select, .field textarea {
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    outline: none;
+  }
+
+  /* REPEATABLE ROWS */
+  .repeat-row {
+    display: grid;
+    gap: 10px;
+    align-items: end;
+    margin-bottom: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--border);
+  }
+  .btn-remove { color: #999; cursor: pointer; border: none; background: none; font-size: 18px; }
+  .btn-add { background: none; border: 1.5px dashed var(--gold); color: var(--gold); padding: 8px; cursor: pointer; border-radius: 8px; width: 100%; margin-top: 10px; }
+
+  /* BUTTONS */
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 24px; }
+  .btn { padding: 12px 24px; border-radius: 8px; cursor: pointer; border: none; font-weight: 500; }
+  .btn-next { background: var(--deep); color: #fff; }
+  .btn-prev { background: #ddd; color: #333; }
   .btn-submit { background: var(--gold); color: var(--deep); font-weight: 700; width: 100%; }
-  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.8); z-index: 100; align-items: center; justify-content: center; }
+
+  .loading-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,255,255,0.9);
+    z-index: 1000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
   .loading-overlay.active { display: flex; }
+
+  .success-screen { display: none; text-align: center; padding: 60px 20px; }
+  .success-screen.active { display: block; }
 </style>
 </head>
 <body>
 
-<div class="loading-overlay" id="loadingOverlay">שולח נתונים...</div>
+<div class="loading-overlay" id="loadingOverlay">
+  <div style="font-size: 18px; font-weight: 700;">שולח נתונים למערכת...</div>
+</div>
 
 <div class="header">
   <div class="header-inner">
-    <div class="firm-name">אמסלם יהודה — רואי חשבון</div>
+    <div class="firm-name">אמסלם יהודה — רואי חשבון ויועצים</div>
     <h1>טופס <span>הצהרת הון</span></h1>
   </div>
 </div>
 
-<div class="main">
-  <div class="year-badge">📅 שנת המס: <select id="taxYear"><option selected>2024</option><option>2025</option></select></div>
+<div class="main" id="mainContainer">
+  <div style="margin-bottom: 20px;">
+    <label>שנת מס: </label>
+    <select id="taxYear" style="padding: 5px; border-radius: 5px;">
+      <option selected>2024</option>
+      <option>2025</option>
+      <option>2023</option>
+    </select>
+  </div>
 
-  <div class="section active" id="section-0">
+  <div class="section active" id="sec-0">
     <div class="card">
+      <div class="card-label">פרטי מגיש הצהרת ההון</div>
       <div class="field-group">
         <div class="field"><label>שם מלא *</label><input type="text" id="name" required></div>
         <div class="field"><label>תעודת זהות *</label><input type="text" id="id_num" required></div>
       </div>
       <div class="field-group">
+        <div class="field"><label>שם בן/בת זוג</label><input type="text" id="spouse_name"></div>
+        <div class="field"><label>ת.ז. בן/בת זוג</label><input type="text" id="spouse_id"></div>
+      </div>
+      <div class="field-group">
         <div class="field"><label>טלפון *</label><input type="tel" id="phone" required></div>
         <div class="field"><label>דוא"ל</label><input type="email" id="email"></div>
       </div>
-      <div class="field"><label>הערות</label><textarea id="generalNotes"></textarea></div>
-      <button class="btn btn-submit" style="margin-top:20px" onclick="submitForm()">✓ שלח הצהרת הון</button>
+      <div class="field"><label>ילדים מתחת לגיל 18 (שמות ותאריכי לידה)</label><textarea id="children"></textarea></div>
+    </div>
+    <div class="nav-buttons"><button class="btn btn-next" onclick="nextStep(1)">המשך לשלב הבא ←</button></div>
+  </div>
+
+  <div class="section" id="sec-1">
+    <div class="card">
+      <div class="card-label">חשבונות בנק (יתרות ליום 31/12)</div>
+      <div id="bankContainer"></div>
+      <button class="btn-add" onclick="addBankRow()">+ הוסף חשבון בנק</button>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-prev" onclick="nextStep(0)">→ חזור</button>
+      <button class="btn btn-next" onclick="nextStep(2)">המשך לשלב הבא ←</button>
     </div>
   </div>
 
-  <div class="success-screen" id="successScreen" style="display:none; text-align:center; padding:50px;">
-    <h2>✅ נשלח בהצלחה!</h2>
-    <p>הנתונים הופיעו בגוגל שיטס שלך.</p>
+  <div class="section" id="sec-2">
+    <div class="card">
+      <div class="card-label">נדל"ן ונכסי מקרקעין</div>
+      <div id="reContainer"></div>
+      <button class="btn-add" onclick="addReRow()">+ הוסף נכס</button>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-prev" onclick="nextStep(1)">→ חזור</button>
+      <button class="btn btn-next" onclick="nextStep(3)">המשך לשלב הבא ←</button>
+    </div>
+  </div>
+
+  <div class="section" id="sec-3">
+    <div class="card">
+      <div class="card-label">הערות וסיום</div>
+      <div class="field"><label>הערות נוספות</label><textarea id="generalNotes" style="min-height: 150px;"></textarea></div>
+    </div>
+    <div class="nav-buttons">
+      <button class="btn btn-prev" onclick="nextStep(2)">→ חזור</button>
+      <button class="btn btn-submit" onclick="submitForm()">✓ שלח הצהרת הון סופית</button>
+    </div>
+  </div>
+
+  <div class="success-screen" id="successScreen">
+    <div style="font-size: 60px;">✅</div>
+    <h2>הטופס נשלח בהצלחה!</h2>
+    <p>הנתונים הועברו לרואה החשבון בגיליון Google Sheets.</p>
+    <button class="btn btn-prev" style="margin-top: 20px;" onclick="location.reload()">שלח טופס חדש</button>
   </div>
 </div>
 
 <script>
-// החלף כאן לקישור שקיבלת מה-Deploy בגוגל
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmPnaO6s4Oqwm5dadvvsxQnr8vExzJ1mOGmwsijSG78PPE_Zo4NsqbgaGOe4Ag5BaN/exec';
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwUdtJWgdalCEoHk2s31HDodsW0TIVWoW2e5KWJtUxEgqKVqv52uh4dtzSEc7cFU3D5/exec';
+
+function nextStep(step) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById('sec-' + step).classList.add('active');
+  window.scrollTo(0,0);
+}
+
+function addBankRow() {
+  const div = document.createElement('div');
+  div.className = 'repeat-row';
+  div.style.gridTemplateColumns = '1fr 1fr 1fr auto';
+  div.innerHTML = `
+    <input type="text" placeholder="בנק" class="b-name">
+    <input type="text" placeholder="חשבון" class="b-acc">
+    <input type="number" placeholder="יתרה" class="b-bal">
+    <button class="btn-remove" onclick="this.parentElement.remove()">×</button>
+  `;
+  document.getElementById('bankContainer').appendChild(div);
+}
+
+function addReRow() {
+  const div = document.createElement('div');
+  div.className = 'repeat-row';
+  div.style.gridTemplateColumns = '2fr 1fr 1fr auto';
+  div.innerHTML = `
+    <input type="text" placeholder="כתובת הנכס" class="re-addr">
+    <input type="number" placeholder="שנה" class="re-year">
+    <input type="number" placeholder="עלות" class="re-cost">
+    <button class="btn-remove" onclick="this.parentElement.remove()">×</button>
+  `;
+  document.getElementById('reContainer').appendChild(div);
+}
 
 function collectAllData() {
-  return {
+  const data = {
     taxYear: document.getElementById('taxYear').value,
     name: document.getElementById('name').value,
     id_num: document.getElementById('id_num').value,
+    spouse_name: document.getElementById('spouse_name').value,
+    spouse_id: document.getElementById('spouse_id').value,
     phone: document.getElementById('phone').value,
     email: document.getElementById('email').value,
+    children: document.getElementById('children').value,
     notes: document.getElementById('generalNotes').value,
-    banks: [], // כאן תוכל להוסיף את פונקציית ה-collectRows לטבלאות נוספות
+    banks: [],
     realEstate: []
   };
+
+  document.querySelectorAll('#bankContainer .repeat-row').forEach(row => {
+    data.banks.push({
+      name: row.querySelector('.b-name').value,
+      acc: row.querySelector('.b-acc').value,
+      bal: row.querySelector('.b-bal').value
+    });
+  });
+
+  document.querySelectorAll('#reContainer .repeat-row').forEach(row => {
+    data.realEstate.push({
+      address: row.querySelector('.re-addr').value,
+      year: row.querySelector('.re-year').value,
+      cost: row.querySelector('.re-cost').value
+    });
+  });
+
+  return data;
 }
 
 async function submitForm() {
-  const name = document.getElementById('name').value;
-  if (!name) return alert('נא למלא שם');
+  if (!document.getElementById('name').value || !document.getElementById('phone').value) {
+    alert('חובה למלא שם וטלפון בשלב הראשון');
+    nextStep(0);
+    return;
+  }
 
   document.getElementById('loadingOverlay').classList.add('active');
 
@@ -98,17 +294,27 @@ async function submitForm() {
     await fetch(SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors',
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(collectAllData())
     });
 
+    // בגלל mode: no-cors אנחנו לא יכולים לקרוא את התגובה, אז פשוט מניחים הצלחה
     document.getElementById('loadingOverlay').classList.remove('active');
-    document.getElementById('section-0').style.display = 'none';
-    document.getElementById('successScreen').style.display = 'block';
-  } catch (e) {
-    alert('שגיאה: ' + e.message);
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById('successScreen').classList.add('active');
+    window.scrollTo(0,0);
+
+  } catch (error) {
     document.getElementById('loadingOverlay').classList.remove('active');
+    alert('שגיאה בשליחת הטופס: ' + error.message);
   }
 }
+
+// הוספת שורות ראשונות בברירת מחדל
+addBankRow();
+addReRow();
 </script>
+
 </body>
 </html>
