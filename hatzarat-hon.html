@@ -806,20 +806,35 @@ function prevSection() { goToSection(currentSection - 1); }
 
 const bankRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 1fr 1fr 1fr 1fr auto;">
-    <div class="field"><label>בנק</label><input type="text" class="bank-name"/></div>
-    <div class="field"><label>סניף / חשבון</label><input type="text" class="bank-account"/></div>
+    
+    <div class="field">
+      <label>בנק</label>
+      <input type="text" class="bank-name"/>
+    </div>
+
+    <div class="field">
+      <label>סניף / חשבון</label>
+      <input type="text" class="bank-account"/>
+    </div>
+
     <div class="field">
       <label>סוג</label>
       <select class="bank-type">
-        <option>עו"ש</option>
-        <option>פיקדון</option>
-        <option>ני"ע</option>
-        <option>מט"ח</option>
-        <option>קופות-גמל</option>
+        <option value="checking">עו"ש</option>
+        <option value="deposit">פיקדון</option>
+        <option value="securities">ני"ע</option>
+        <option value="foreign">מט"ח</option>
+        <option value="pension">קופות גמל</option>
       </select>
     </div>
-    <div class="field"><label>יתרה (₪)</label><input type="number" class="bank-balance"/></div>
+
+    <div class="field">
+      <label>יתרה (₪)</label>
+      <input type="number" class="bank-balance"/>
+    </div>
+
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
+
   </div>`;
 
 const realEstateRowTemplate = () => `
