@@ -722,7 +722,7 @@
       <div class="section-number">4</div>
       <div>
         <div class="section-title">תכולת הבית</div>
-        <div class="section-desc">פריטים יקרי ערך: תכשיטים, אמנות, חשמל יקר</div>
+        <div class="section-desc">פריטים יקרי ערך: תכשיטים, אמנות, מוצרי חשמל</div>
       </div>
     </div>
     <div class="card">
@@ -884,7 +884,7 @@ const vehicleRowTemplate = () => `
 const contentRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 2fr 1fr 1fr auto;">
     <div class="field"><label>תיאור</label><input type="text" class="c-desc"/></div>
-    <div class="field"><label>קטגוריה</label><select class="c-cat"><option>תכשיטים</option><option>חשמל</option></select></div>
+    <div class="field"><label>קטגוריה</label><select class="c-cat"><option>תכשיטים</option><option>מכשירי חשמל</option><option>ציוד אלקטרוני</option><option>ריהוט</option><option>אחר</option></select></div>
     <div class="field"><label>שווי (₪)</label><input type="number" class="c-value"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
@@ -948,10 +948,34 @@ async function submitForm() {
     client: {
       name: name,
       id: document.getElementById('id_num').value,
+      spouseName: document.getElementById('spouse_name')?.value || '',
+      spouseId: document.getElementById('spouse_id')?.value || '',
       phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value
+      email: document.getElementById('email').value,
+      children: document.getElementById('children')?.value || ''
     },
-    banks: collectRows('bankRows', [{key:'bank', cls:'bank-name'}, {key:'balance', cls:'bank-balance'}]),
+    banks: collectRows('bankRows', [
+      {key:'bank', cls:'bank-name'}, {key:'account', cls:'bank-account'},
+      {key:'type', cls:'bank-type'}, {key:'balance', cls:'bank-balance'}
+    ]),
+    realEstate: collectRows('realEstateRows', [
+      {key:'address', cls:'re-address'}, {key:'type', cls:'re-type'},
+      {key:'year', cls:'re-year'}, {key:'cost', cls:'re-cost'}
+    ]),
+    vehicles: collectRows('vehicleRows', [
+      {key:'model', cls:'v-model'}, {key:'year', cls:'v-year'},
+      {key:'plate', cls:'v-plate'}, {key:'price', cls:'v-price'}
+    ]),
+    contents: collectRows('contentRows', [
+      {key:'desc', cls:'c-desc'}, {key:'category', cls:'c-cat'}, {key:'value', cls:'c-value'}
+    ]),
+    debts: collectRows('debtRows', [
+      {key:'lender', cls:'d-lender'}, {key:'type', cls:'d-type'},
+      {key:'balance', cls:'d-balance'}, {key:'endDate', cls:'d-end'}
+    ]),
+    other: collectRows('otherRows', [
+      {key:'desc', cls:'o-desc'}, {key:'type', cls:'o-type'}, {key:'value', cls:'o-val'}
+    ]),
     notes: document.getElementById('generalNotes').value,
     submittedAt: new Date().toLocaleString('he-IL')
   };
@@ -963,15 +987,16 @@ async function submitForm() {
     }
     data.files = filesData;
 
-    await fetch(SCRIPT_URL, {
+    const resp = await fetch(SCRIPT_URL, {
       method: 'POST',
-      mode: 'no-cors', // שימוש ב-no-cors למניעת שגיאות דפדפן עם Apps Script
-      cache: 'no-cache',
-      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    
-    showSuccess();
+    const result = await resp.json();
+    if (result.status === 'ok') {
+      showSuccess();
+    } else {
+      throw new Error(result.message || 'שגיאה לא ידועה');
+    }
   } catch (e) {
     alert('שגיאה בשליחה: ' + e.message);
   } finally {
