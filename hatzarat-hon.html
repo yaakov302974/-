@@ -1028,15 +1028,16 @@ function collectRows(containerId, fields) {
 
 function collectAllData() {
   return {
+    // מוציאים הכל החוצה מה"client" שיהיה ישר בתוך הנתונים
     taxYear: document.getElementById('taxYear').value,
-    client: {
-      name: document.getElementById('name').value,
-      id: document.getElementById('id_num').value,
-      spouseName: document.getElementById('spouse_name').value,
-      spouseId: document.getElementById('spouse_id').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      children: document.getElementById('children').value,
+    name: document.getElementById('name').value,
+    id_num: document.getElementById('id_num').value,
+    spouse_name: document.getElementById('spouse_name').value,
+    spouse_id: document.getElementById('spouse_id').value,
+    phone: document.getElementById('phone').value,
+    email: document.getElementById('email').value,
+    children: document.getElementById('children').value,
+    notes: document.getElementById('generalNotes').value,
     },
     banks: collectRows('bankRows', [
       {key:'bank', cls:'bank-name'}, {key:'account', cls:'bank-account'},
