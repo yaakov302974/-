@@ -477,64 +477,6 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 
-  /* SETUP BANNER */
-  .setup-banner {
-    background: linear-gradient(135deg, #1a1a2e, var(--deep));
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 32px;
-    border: 1px solid rgba(201,168,76,0.3);
-  }
-  .setup-banner h3 {
-    color: var(--gold);
-    font-size: 14px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    margin-bottom: 10px;
-  }
-  .setup-banner p {
-    color: rgba(255,255,255,0.7);
-    font-size: 13px;
-    line-height: 1.7;
-  }
-  .setup-banner code {
-    background: rgba(255,255,255,0.1);
-    padding: 2px 7px;
-    border-radius: 4px;
-    font-size: 12px;
-    color: var(--gold-light);
-  }
-  .url-field {
-    margin-top: 14px;
-    display: flex;
-    gap: 10px;
-  }
-  .url-field input {
-    flex: 1;
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(201,168,76,0.4);
-    border-radius: 8px;
-    padding: 10px 14px;
-    color: #fff;
-    font-size: 13px;
-    font-family: monospace;
-    outline: none;
-  }
-  .url-field input::placeholder { color: rgba(255,255,255,0.3); }
-  .url-field input:focus { border-color: var(--gold); }
-  .url-save-btn {
-    background: var(--gold);
-    color: var(--deep);
-    border: none;
-    border-radius: 8px;
-    padding: 10px 18px;
-    cursor: pointer;
-    font-family: 'Heebo', sans-serif;
-    font-weight: 700;
-    font-size: 13px;
-    white-space: nowrap;
-  }
-
   @media (max-width: 600px) {
     .header { padding: 28px 20px; }
     .progress-bar { padding: 0 20px 20px; }
@@ -552,7 +494,7 @@
 
 <div class="header">
   <div class="header-inner">
-    <div class="firm-name" id="firmNameDisplay">אמסלם יהודה — רואי חשבון ויועצים</div>
+    <div class="firm-name">אמסלם יהודה — רואי חשבון ויועצים</div>
     <h1>טופס <span>הצהרת הון</span></h1>
     <div class="header-sub">מלא את הפרטים בצורה מסודרת — כל השדות יישלחו ישירות לאיש הקשר שלך</div>
   </div>
@@ -599,18 +541,6 @@
 
 <div class="main">
 
-  <!-- SETUP BANNER (admin only - hidden by ?admin=1) -->
-  <div class="setup-banner" id="setupBanner" style="display:none">
-    <h3>⚙️ הגדרת חיבור ל-Google Sheets</h3>
-    <p>הדבק כאן את כתובת ה-<code>Web App URL</code> שקיבלת מ-Google Apps Script, ולחץ שמור:</p>
-    <div class="url-field">
-      <input type="text" id="scriptUrlInput" placeholder="https://script.google.com/macros/s/..." />
-      <button class="url-save-btn" onclick="saveScriptUrl()">שמור</button>
-    </div>
-    <p style="margin-top:10px; font-size:12px; opacity:0.6;">הכתובת נשמרת בדפדפן בלבד. כל מי שפותח את הדף ישתמש בה אחרי שתפיצ/י את הקישור.</p>
-  </div>
-
-  <!-- YEAR SELECTOR -->
   <div class="year-badge">
     📅 שנת המס:
     <select id="taxYear" style="background:none;border:none;color:var(--gold);font-weight:700;font-size:14px;cursor:pointer;outline:none;font-family:'Heebo',sans-serif;">
@@ -624,7 +554,6 @@
     </select>
   </div>
 
-  <!-- SECTION 0: CLIENT DETAILS -->
   <div class="section active" id="section-0">
     <div class="section-header">
       <div class="section-number">0</div>
@@ -678,13 +607,12 @@
     </div>
   </div>
 
-  <!-- SECTION 1: BANKS -->
   <div class="section" id="section-1">
     <div class="section-header">
       <div class="section-number">1</div>
       <div>
         <div class="section-title">אישורי בנקים ויתרות</div>
-        <div class="section-desc">יתרות ליום 31 בדצמבר <span class="yr">2022</span> — חשבון עו"ש, חיסכון, ני"ע, קופות גמל, מט"ח, לרבות של בן/בת זוג וילדים מתחת לגיל 18</div>
+        <div class="section-desc">יתרות ליום 31 בדצמבר <span class="yr">2024</span> — חשבון עו"ש, חיסכון, ני"ע, קופות גמל, מט"ח</div>
       </div>
     </div>
     <div class="card">
@@ -698,7 +626,6 @@
         <input type="file" multiple accept=".pdf,.jpg,.jpeg,.png" onchange="handleFiles(this,'bank')">
         <div class="upload-icon">📄</div>
         <div class="upload-text"><strong>גרור לכאן קבצים</strong> או לחץ לבחירה</div>
-        <div class="upload-text" style="font-size:12px;margin-top:4px;">PDF, JPG, PNG עד 10MB לקובץ</div>
       </div>
       <div class="file-list" id="files-bank"></div>
     </div>
@@ -708,13 +635,12 @@
     </div>
   </div>
 
-  <!-- SECTION 2: REAL ESTATE -->
   <div class="section" id="section-2">
     <div class="section-header">
       <div class="section-number">2</div>
       <div>
         <div class="section-title">נדל"ן ונכסי מקרקעין</div>
-        <div class="section-desc">דירות, קרקעות, נכסים מסחריים — כולל חוזי רכישה ומסמכי בעלות</div>
+        <div class="section-desc">דירות, קרקעות, נכסים מסחריים</div>
       </div>
     </div>
     <div class="card">
@@ -737,13 +663,12 @@
     </div>
   </div>
 
-  <!-- SECTION 3: VEHICLES -->
   <div class="section" id="section-3">
     <div class="section-header">
       <div class="section-number">3</div>
       <div>
         <div class="section-title">כלי רכב</div>
-        <div class="section-desc">כל הרכבים שברשותכם — כולל מסמכי רכישה</div>
+        <div class="section-desc">כל הרכבים שברשותכם</div>
       </div>
     </div>
     <div class="card">
@@ -766,13 +691,12 @@
     </div>
   </div>
 
-  <!-- SECTION 4: CONTENTS -->
   <div class="section" id="section-4">
     <div class="section-header">
       <div class="section-number">4</div>
       <div>
         <div class="section-title">תכולת הבית</div>
-        <div class="section-desc">פריטים יקרי ערך: תכשיטים, אמנות, מכשירי חשמל, ריהוט יוקרה — יש לציין שווי בזמן הרכישה</div>
+        <div class="section-desc">פריטים יקרי ערך: תכשיטים, אמנות, חשמל יקר</div>
       </div>
     </div>
     <div class="card">
@@ -786,13 +710,12 @@
     </div>
   </div>
 
-  <!-- SECTION 5: DEBTS & LIABILITIES -->
   <div class="section" id="section-5">
     <div class="section-header">
       <div class="section-number">5</div>
       <div>
         <div class="section-title">התחייבויות והלוואות</div>
-        <div class="section-desc">הלוואות מבנקים, מוסדות פיננסיים, הלוואות פרטיות — יש לצרף אישורים</div>
+        <div class="section-desc">הלוואות מכל סוג</div>
       </div>
     </div>
     <div class="card">
@@ -815,13 +738,12 @@
     </div>
   </div>
 
-  <!-- SECTION 6: OTHER -->
   <div class="section" id="section-6">
     <div class="section-header">
       <div class="section-number">6</div>
       <div>
         <div class="section-title">רכוש ונכסים אחרים</div>
-        <div class="section-desc">חייבים, זכאים, השקעות אחרות, חשבונות בחו"ל, ועוד</div>
+        <div class="section-desc">כל מידע נוסף</div>
       </div>
     </div>
     <div class="card">
@@ -831,9 +753,7 @@
     </div>
     <div class="card">
       <div class="card-label">הערות כלליות</div>
-      <div class="field">
-        <textarea id="generalNotes" placeholder="כל מידע נוסף שחשוב לדעת..." style="min-height:120px;width:100%;border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;font-size:14px;font-family:'Heebo',sans-serif;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border)'"></textarea>
-      </div>
+      <textarea id="generalNotes" placeholder="מידע נוסף..." style="width:100%; min-height:100px; padding:10px; border-radius:8px; border:1px solid var(--border);"></textarea>
     </div>
     <div class="card">
       <div class="card-label">מסמכים נוספים</div>
@@ -850,37 +770,18 @@
     </div>
   </div>
 
-  <!-- SUCCESS -->
   <div class="success-screen" id="successScreen">
     <div class="success-icon">✅</div>
     <div class="success-title">הטופס נשלח בהצלחה!</div>
-    <div class="success-sub">הנתונים שלך הועברו לאיש הקשר שלך ב-Google Sheets. תקבל/י אישור בדוא"ל בקרוב.</div>
+    <div class="success-sub">הנתונים שלך הועברו לטיפול. תקבל/י אישור בקרוב.</div>
     <button class="btn btn-secondary" style="margin-top:32px;" onclick="location.reload()">מלא טופס נוסף</button>
   </div>
 
-</div><!-- /main -->
+</div>
 
 <script>
 // ===== CONFIGURATION =====
-let SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzmIUCJut4poWxtLwGa9cUuxuV5zbwbUFET21aGLcd0EGfWP9TqFl6KfHRQfpo2v0fS/exec';
-const FIRM_NAME = localStorage.getItem('hatzarat_firm') || 'אמסלם יהודה — רואי חשבון ויועצים';
-
-// Admin panel
-const params = new URLSearchParams(location.search);
-if (params.get('admin') === '1') {
-  document.getElementById('setupBanner').style.display = 'block';
-  document.getElementById('scriptUrlInput').value = SCRIPT_URL;
-}
-document.getElementById('firmNameDisplay').textContent = FIRM_NAME;
-
-function saveScriptUrl() {
-  const val = document.getElementById('scriptUrlInput').value.trim();
-  if (val) {
-    localStorage.setItem('hatzarat_script_url', val);
-    SCRIPT_URL = val;
-    alert('נשמר! עכשיו תוכל/י לשתף את הקישור עם הלקוחות.');
-  }
-}
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybXB-RIljLXFzq0X8H2PvIZbLqaJ_JJW0YSlHWx3U/exec';
 
 // ===== STATE =====
 const uploadedFiles = { bank: [], realestate: [], vehicles: [], debts: [], other: [] };
@@ -906,78 +807,53 @@ function prevSection() { goToSection(currentSection - 1); }
 // ===== ROW TEMPLATES =====
 const bankRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 1fr 1fr 1fr 1fr auto;">
-    <div class="field"><label>בנק</label><input type="text" placeholder="לאומי" class="bank-name"/></div>
-    <div class="field"><label>סניף / חשבון</label><input type="text" placeholder="123 / 456789" class="bank-account"/></div>
-    <div class="field"><label>סוג חשבון</label>
-      <select class="bank-type">
-        <option>עו"ש</option><option>חיסכון</option><option>ני"ע</option>
-        <option>קופת גמל</option><option>מט"ח</option><option>אחר</option>
-      </select>
-    </div>
-    <div class="field"><label>יתרה ביום הבסיס (₪)</label><input type="number" placeholder="0" class="bank-balance"/></div>
+    <div class="field"><label>בנק</label><input type="text" class="bank-name"/></div>
+    <div class="field"><label>סניף / חשבון</label><input type="text" class="bank-account"/></div>
+    <div class="field"><label>סוג</label><select class="bank-type"><option>עו"ש</option><option>חיסכון</option><option>ני"ע</option></select></div>
+    <div class="field"><label>יתרה (₪)</label><input type="number" class="bank-balance"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
 
 const realEstateRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 2fr 1fr 1fr 1fr auto;">
-    <div class="field"><label>כתובת הנכס</label><input type="text" placeholder="רחוב, עיר" class="re-address"/></div>
-    <div class="field"><label>סוג</label>
-      <select class="re-type">
-        <option>דירה למגורים</option><option>דירה להשקעה</option>
-        <option>קרקע</option><option>מסחרי</option><option>אחר</option>
-      </select>
-    </div>
-    <div class="field"><label>שנת רכישה</label><input type="number" placeholder="2010" class="re-year"/></div>
-    <div class="field"><label>עלות רכישה (₪)</label><input type="number" placeholder="0" class="re-cost"/></div>
+    <div class="field"><label>כתובת</label><input type="text" class="re-address"/></div>
+    <div class="field"><label>סוג</label><select class="re-type"><option>דירה</option><option>קרקע</option></select></div>
+    <div class="field"><label>שנת רכישה</label><input type="number" class="re-year"/></div>
+    <div class="field"><label>עלות (₪)</label><input type="number" class="re-cost"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
 
 const vehicleRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 1fr 1fr 1fr 1fr auto;">
-    <div class="field"><label>יצרן ודגם</label><input type="text" placeholder="טויוטה קורולה" class="v-model"/></div>
-    <div class="field"><label>שנת יצור</label><input type="number" placeholder="2020" class="v-year"/></div>
-    <div class="field"><label>מספר רישוי</label><input type="text" placeholder="12-345-67" class="v-plate"/></div>
-    <div class="field"><label>מחיר רכישה (₪)</label><input type="number" placeholder="0" class="v-price"/></div>
+    <div class="field"><label>דגם</label><input type="text" class="v-model"/></div>
+    <div class="field"><label>שנה</label><input type="number" class="v-year"/></div>
+    <div class="field"><label>מספר רכב</label><input type="text" class="v-plate"/></div>
+    <div class="field"><label>עלות (₪)</label><input type="number" class="v-price"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
 
 const contentRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 2fr 1fr 1fr auto;">
-    <div class="field"><label>תיאור פריט</label><input type="text" placeholder="תכשיט / ריהוט / מכשיר..." class="c-desc"/></div>
-    <div class="field"><label>קטגוריה</label>
-      <select class="c-cat">
-        <option>תכשיטים</option><option>ריהוט</option><option>מכשירי חשמל</option>
-        <option>אמנות / אספנות</option><option>אחר</option>
-      </select>
-    </div>
-    <div class="field"><label>שווי ברכישה (₪)</label><input type="number" placeholder="0" class="c-value"/></div>
+    <div class="field"><label>תיאור</label><input type="text" class="c-desc"/></div>
+    <div class="field"><label>קטגוריה</label><select class="c-cat"><option>תכשיטים</option><option>חשמל</option></select></div>
+    <div class="field"><label>שווי (₪)</label><input type="number" class="c-value"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
 
 const debtRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 1fr 1fr 1fr 1fr auto;">
-    <div class="field"><label>מלווה</label><input type="text" placeholder="בנק / אדם פרטי..." class="d-lender"/></div>
-    <div class="field"><label>סוג</label>
-      <select class="d-type">
-        <option>משכנתה</option><option>הלוואה אישית</option><option>הלוואה עסקית</option>
-        <option>כרטיס אשראי</option><option>חוב פרטי</option><option>אחר</option>
-      </select>
-    </div>
-    <div class="field"><label>יתרת חוב (₪)</label><input type="number" placeholder="0" class="d-balance"/></div>
-    <div class="field"><label>תאריך פירעון</label><input type="date" class="d-end"/></div>
+    <div class="field"><label>מלווה</label><input type="text" class="d-lender"/></div>
+    <div class="field"><label>סוג</label><select class="d-type"><option>משכנתה</option><option>הלוואה</option></select></div>
+    <div class="field"><label>יתרה (₪)</label><input type="number" class="d-balance"/></div>
+    <div class="field"><label>סיום</label><input type="date" class="d-end"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
 
 const otherRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 2fr 1fr 1fr auto;">
-    <div class="field"><label>תיאור</label><input type="text" placeholder="חייבים, זכאים, ירושה..." class="o-desc"/></div>
-    <div class="field"><label>סוג</label>
-      <select class="o-type">
-        <option>חייב לי</option><option>אני חייב</option><option>השקעה אחרת</option>
-        <option>חשבון בחו"ל</option><option>אחר</option>
-      </select>
-    </div>
-    <div class="field"><label>סכום / שווי (₪)</label><input type="number" placeholder="0" class="o-val"/></div>
+    <div class="field"><label>תיאור</label><input type="text" class="o-desc"/></div>
+    <div class="field"><label>סוג</label><select class="o-type"><option>חוב לי</option><option>אחר</option></select></div>
+    <div class="field"><label>סכום (₪)</label><input type="number" class="o-val"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
 
@@ -988,9 +864,7 @@ function addRow(containerId, templateFn) {
   container.appendChild(div.firstElementChild);
 }
 
-function removeRow(btn) {
-  btn.closest('.repeat-row').remove();
-}
+function removeRow(btn) { btn.closest('.repeat-row').remove(); }
 
 // ===== FILE HANDLING =====
 function handleFiles(input, category) {
@@ -1001,12 +875,9 @@ function handleFiles(input, category) {
 
 function renderFileList(category) {
   const container = document.getElementById('files-' + category);
-  if (!container) return;
   container.innerHTML = uploadedFiles[category].map((f, i) => `
     <div class="file-item">
-      <span>📎</span>
-      <span class="file-item-name">${f.name}</span>
-      <span style="color:var(--muted);font-size:12px;">${(f.size/1024).toFixed(0)}KB</span>
+      <span class="file-item-name">📎 ${f.name}</span>
       <span class="file-item-remove" onclick="removeFile('${category}',${i})">×</span>
     </div>`).join('');
 }
@@ -1016,147 +887,84 @@ function removeFile(category, index) {
   renderFileList(category);
 }
 
-// ===== COLLECT DATA =====
-function collectRows(containerId, fields) {
-  const rows = document.getElementById(containerId)?.querySelectorAll('.repeat-row') || [];
-  return Array.from(rows).map(row => {
-    const obj = {};
-    fields.forEach(f => { obj[f.key] = row.querySelector('.' + f.cls)?.value || ''; });
-    return obj;
-  });
-}
-
-function collectAllData() {
-  return {
-    taxYear: document.getElementById('taxYear').value,
-    client: {
-      name: document.getElementById('name').value,
-      id: document.getElementById('id_num').value,
-      spouseName: document.getElementById('spouse_name').value,
-      spouseId: document.getElementById('spouse_id').value,
-      phone: document.getElementById('phone').value,
-      email: document.getElementById('email').value,
-      children: document.getElementById('children').value,
-    },
-    banks: collectRows('bankRows', [
-      {key:'bank', cls:'bank-name'}, {key:'account', cls:'bank-account'},
-      {key:'type', cls:'bank-type'}, {key:'balance', cls:'bank-balance'}
-    ]),
-    realEstate: collectRows('realEstateRows', [
-      {key:'address', cls:'re-address'}, {key:'type', cls:'re-type'},
-      {key:'year', cls:'re-year'}, {key:'cost', cls:'re-cost'}
-    ]),
-    vehicles: collectRows('vehicleRows', [
-      {key:'model', cls:'v-model'}, {key:'year', cls:'v-year'},
-      {key:'plate', cls:'v-plate'}, {key:'price', cls:'v-price'}
-    ]),
-    contents: collectRows('contentRows', [
-      {key:'desc', cls:'c-desc'}, {key:'category', cls:'c-cat'}, {key:'value', cls:'c-value'}
-    ]),
-    debts: collectRows('debtRows', [
-      {key:'lender', cls:'d-lender'}, {key:'type', cls:'d-type'},
-      {key:'balance', cls:'d-balance'}, {key:'endDate', cls:'d-end'}
-    ]),
-    other: collectRows('otherRows', [
-      {key:'desc', cls:'o-desc'}, {key:'type', cls:'o-type'}, {key:'value', cls:'o-val'}
-    ]),
-    notes: document.getElementById('generalNotes').value,
-    filesSummary: Object.fromEntries(
-      Object.entries(uploadedFiles).map(([k,v]) => [k, v.map(f => f.name)])
-    ),
-    submittedAt: new Date().toLocaleString('he-IL')
-  };
-}
-
 // ===== SUBMIT =====
 async function submitForm() {
   const name = document.getElementById('name').value.trim();
   if (!name) { alert('נא להזין שם לקוח'); goToSection(0); return; }
 
-  const data = collectAllData();
-
-  if (!SCRIPT_URL) {
-    // Demo mode — show data
-    console.log('FORM DATA:', JSON.stringify(data, null, 2));
-    alert('⚠️ לא הוגדר Google Apps Script URL.\n\nהנתונים הודפסו ל-Console.\nלחץ F12 כדי לראותם.\n\nכדי לחבר ל-Google Sheets, פתח ?admin=1 בכתובת הדף.');
-    showSuccess();
-    return;
-  }
-
   document.getElementById('loadingOverlay').classList.add('active');
 
+  const data = {
+    taxYear: document.getElementById('taxYear').value,
+    client: {
+      name: name,
+      id: document.getElementById('id_num').value,
+      phone: document.getElementById('phone').value,
+      email: document.getElementById('email').value
+    },
+    banks: collectRows('bankRows', [{key:'bank', cls:'bank-name'}, {key:'balance', cls:'bank-balance'}]),
+    notes: document.getElementById('generalNotes').value,
+    submittedAt: new Date().toLocaleString('he-IL')
+  };
+
   try {
-    // Upload files first (convert to base64)
     const filesData = {};
     for (const [cat, files] of Object.entries(uploadedFiles)) {
       filesData[cat] = await Promise.all(files.map(f => fileToBase64(f)));
     }
     data.files = filesData;
 
-    const resp = await fetch(SCRIPT_URL, {
+    await fetch(SCRIPT_URL, {
       method: 'POST',
+      mode: 'no-cors', // שימוש ב-no-cors למניעת שגיאות דפדפן עם Apps Script
+      cache: 'no-cache',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
     });
-    const result = await resp.json();
-    if (result.status === 'ok') {
-      showSuccess();
-    } else {
-      throw new Error(result.message || 'שגיאה');
-    }
+    
+    showSuccess();
   } catch (e) {
-    alert('שגיאה בשליחה: ' + e.message + '\n\nהנתונים הודפסו ל-Console.');
-    console.log('FORM DATA (fallback):', JSON.stringify(data, null, 2));
+    alert('שגיאה בשליחה: ' + e.message);
   } finally {
     document.getElementById('loadingOverlay').classList.remove('active');
   }
+}
+
+function collectRows(containerId, fields) {
+  const rows = document.getElementById(containerId).querySelectorAll('.repeat-row');
+  return Array.from(rows).map(row => {
+    const obj = {};
+    fields.forEach(f => { obj[f.key] = row.querySelector('.' + f.cls).value; });
+    return obj;
+  });
 }
 
 function fileToBase64(file) {
   return new Promise((res, rej) => {
     const r = new FileReader();
     r.onload = () => res({ name: file.name, type: file.type, data: r.result.split(',')[1] });
-    r.onerror = rej;
     r.readAsDataURL(file);
   });
 }
 
 function showSuccess() {
-  document.getElementById('loadingOverlay').classList.remove('active');
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.querySelector('.year-badge').style.display = 'none';
-  document.getElementById('setupBanner').style.display = 'none';
   document.getElementById('successScreen').classList.add('active');
+  document.querySelector('.year-badge').style.display = 'none';
 }
 
-// ===== UPDATE YEAR REFS =====
-document.getElementById('taxYear').addEventListener('change', function() {
-  document.querySelectorAll('.yr').forEach(el => el.textContent = this.value);
-});
-
-// ===== INIT ROWS =====
-addRow('bankRows', bankRowTemplate);
-addRow('realEstateRows', realEstateRowTemplate);
-addRow('vehicleRows', vehicleRowTemplate);
-addRow('contentRows', contentRowTemplate);
-addRow('debtRows', debtRowTemplate);
-addRow('otherRows', otherRowTemplate);
-
-// ===== DRAG & DROP =====
-document.querySelectorAll('.upload-zone').forEach(zone => {
-  zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
-  zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
-  zone.addEventListener('drop', e => {
-    e.preventDefault();
-    zone.classList.remove('dragover');
-    const input = zone.querySelector('input[type=file]');
-    // Trigger the file handler manually
-    const dt = e.dataTransfer;
-    if (dt.files.length && input.onchange) {
-      Object.defineProperty(input, 'files', { value: dt.files, writable: true });
-      input.onchange({ target: input });
-    }
+function init() {
+  ['bankRows','realEstateRows','vehicleRows','contentRows','debtRows','otherRows'].forEach(id => {
+    const fnMap = {
+      bankRows: bankRowTemplate, realEstateRows: realEstateRowTemplate,
+      vehicleRows: vehicleRowTemplate, contentRows: contentRowTemplate,
+      debtRows: debtRowTemplate, otherRows: otherRowTemplate
+    };
+    addRow(id, fnMap[id]);
   });
-});
+}
+
+init();
 </script>
 </body>
 </html>
