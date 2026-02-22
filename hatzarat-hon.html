@@ -804,12 +804,20 @@ function goToSection(n) {
 function nextSection() { goToSection(currentSection + 1); }
 function prevSection() { goToSection(currentSection - 1); }
 
-// ===== ROW TEMPLATES =====
 const bankRowTemplate = () => `
   <div class="repeat-row" style="grid-template-columns: 1fr 1fr 1fr 1fr auto;">
     <div class="field"><label>בנק</label><input type="text" class="bank-name"/></div>
     <div class="field"><label>סניף / חשבון</label><input type="text" class="bank-account"/></div>
-    <div class="field"><label>סוג</label><select class="bank-type"><option>עו"ש</option><option>פיקדון</option><option>ני"ע</option></select><option>מט"ח</option></select><option>קופות-גמל</option></select></div>
+    <div class="field">
+      <label>סוג</label>
+      <select class="bank-type">
+        <option>עו"ש</option>
+        <option>פיקדון</option>
+        <option>ני"ע</option>
+        <option>מט"ח</option>
+        <option>קופות-גמל</option>
+      </select>
+    </div>
     <div class="field"><label>יתרה (₪)</label><input type="number" class="bank-balance"/></div>
     <button class="btn-remove-row" onclick="removeRow(this)">×</button>
   </div>`;
