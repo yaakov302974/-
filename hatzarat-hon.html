@@ -16,68 +16,92 @@
     font-family: 'Heebo', sans-serif; background: var(--paper); color: var(--ink);
     min-height: 100vh; background-image: radial-gradient(ellipse at 20% 50%, rgba(201,168,76,0.08) 0%, transparent 60%);
   }
-  .header { background: var(--deep); padding: 40px 60px; text-align: center; color: white; }
-  .firm-name { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; color: var(--gold); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .header { background: var(--deep); padding: 40px 60px; position: relative; overflow: hidden; text-align: center; }
+  .firm-name { font-family: 'Frank Ruhl Libre', serif; font-size: 13px; letter-spacing: 3px; color: var(--gold); text-transform: uppercase; margin-bottom: 12px; }
+  .header h1 { font-family: 'Frank Ruhl Libre', serif; font-size: clamp(28px, 5vw, 44px); font-weight: 700; color: #fff; }
   .header h1 span { color: var(--gold); }
-  
-  .progress-bar { background: var(--deep); padding: 0 20px 20px; border-bottom: 1px solid rgba(201,168,76,0.3); display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
-  .step-dot { width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--gold); display: flex; align-items: center; justify-content: center; color: white; font-size: 11px; cursor: pointer; transition: 0.3s; }
-  .step-dot.active { background: var(--gold); color: var(--deep); font-weight: bold; transform: scale(1.1); }
+  .header-sub { color: rgba(255,255,255,0.6); font-size: 15px; margin-top: 12px; }
 
-  .main { max-width: 860px; margin: 0 auto; padding: 40px 20px; }
-  .section { display: none; animation: fadeIn 0.4s; }
+  .progress-bar { background: var(--deep); padding: 0 60px 24px; border-bottom: 1px solid rgba(201,168,76,0.3); }
+  .progress-inner { max-width: 860px; margin: 0 auto; display: flex; gap: 6px; align-items: center; justify-content: space-between; }
+  .step-group { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+  .step-dot { width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-size: 11px; color: rgba(255,255,255,0.4); cursor: pointer; transition: 0.3s; }
+  .step-dot.active { background: var(--gold); border-color: var(--gold); color: var(--deep); font-weight: 700; }
+  .step-dot.done { background: rgba(201,168,76,0.3); color: var(--gold); }
+  .step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.15); }
+  .step-label { font-size: 11px; color: rgba(255,255,255,0.4); text-align: center; }
+
+  .main { max-width: 860px; margin: 0 auto; padding: 40px 20px 80px; }
+  .section { display: none; animation: fadeSlide 0.4s ease; }
   .section.active { display: block; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeSlide { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
   .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 28px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-  .card-label { font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+  .card-label { font-size: 12px; font-weight: 700; color: var(--gold); margin-bottom: 16px; text-transform: uppercase; letter-spacing: 1px; }
   
   .field-group { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
   @media (max-width: 600px) { .field-group { grid-template-columns: 1fr; } }
   .field { display: flex; flex-direction: column; gap: 6px; }
   .field label { font-size: 13px; font-weight: 500; }
-  .field input, .field select, .field textarea { border: 1.5px solid var(--border); border-radius: 8px; padding: 10px; outline: none; transition: 0.2s; }
+  .field input, .field select, .field textarea { border: 1.5px solid var(--border); border-radius: 8px; padding: 10px; font-size: 14px; outline: none; }
   .field input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,0.1); }
-  
-  .repeat-row { display: grid; gap: 10px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); align-items: end; }
-  .btn-add { background: none; border: 1.5px dashed var(--gold); color: var(--gold); padding: 10px; cursor: pointer; border-radius: 8px; width: 100%; margin-top: 10px; font-weight: bold; }
-  .btn-remove { color: var(--accent); border: none; background: none; cursor: pointer; font-size: 18px; font-weight: bold; }
 
-  .nav-buttons { display: flex; justify-content: space-between; margin-top: 30px; gap: 15px; }
-  .btn { padding: 12px 30px; border-radius: 8px; cursor: pointer; font-weight: 500; border: none; transition: 0.2s; flex: 1; }
+  .upload-zone { border: 2px dashed var(--border); border-radius: 10px; padding: 28px; text-align: center; cursor: pointer; transition: 0.2s; background: rgba(201,168,76,0.02); position: relative; }
+  .upload-zone:hover { border-color: var(--gold); background: rgba(201,168,76,0.06); }
+  .upload-zone input { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .file-list { margin-top: 10px; display: flex; flex-direction: column; gap: 5px; }
+  .file-item { background: #f0f8f0; padding: 8px; border-radius: 6px; font-size: 12px; display: flex; justify-content: space-between; }
+
+  .repeat-row { display: grid; gap: 10px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed var(--border); align-items: end; }
+  .btn-add-row { background: none; border: 1.5px dashed var(--gold); color: var(--gold); padding: 10px; cursor: pointer; border-radius: 8px; width: 100%; font-weight: bold; margin-top: 10px; }
+  .btn-remove-row { color: var(--accent); background: none; border: none; cursor: pointer; font-size: 18px; }
+
+  .nav-buttons { display: flex; justify-content: space-between; margin-top: 36px; border-top: 1px solid var(--border); padding-top: 24px; }
+  .btn { padding: 12px 32px; border-radius: 8px; cursor: pointer; font-weight: 500; border: none; transition: 0.2s; }
   .btn-next { background: var(--deep); color: white; }
   .btn-prev { background: #e0e0e0; color: #333; }
-  .btn-submit { background: var(--gold); color: var(--deep); font-weight: 900; font-size: 18px; }
+  .btn-submit { background: var(--gold); color: var(--deep); font-weight: 900; width: 100%; font-size: 18px; }
 
-  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.9); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
+  .loading-overlay { display: none; position: fixed; inset: 0; background: rgba(245,240,232,0.9); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
   .loading-overlay.active { display: flex; }
 </style>
 </head>
 <body>
 
 <div class="loading-overlay" id="loadingOverlay">
-  <div style="font-size: 20px; font-weight: bold; color: var(--deep);">שולח נתונים לרואה החשבון...</div>
+  <div style="font-size: 20px; font-weight: bold; color: var(--deep);">מעבד נתונים ושולח...</div>
 </div>
 
 <div class="header">
-  <div class="firm-name">אמסלם יהודה — רואי חשבון ויועצים</div>
-  <h1>טופס <span>הצהרת הון</span></h1>
+  <div class="header-inner">
+    <div class="firm-name">אמסלם יהודה — רואי חשבון ויועצים</div>
+    <h1>טופס <span>הצהרת הון</span></h1>
+    <div class="header-sub">מלא את הפרטים בצורה מסודרת — הכל יישלח ישירות לגוגל שיטס</div>
+  </div>
 </div>
 
-<div class="progress-bar" id="progressBar">
-  <div class="step-dot active" onclick="goToSection(0)">1</div>
-  <div class="step-dot" onclick="goToSection(1)">2</div>
-  <div class="step-dot" onclick="goToSection(2)">3</div>
-  <div class="step-dot" onclick="goToSection(3)">4</div>
-  <div class="step-dot" onclick="goToSection(4)">5</div>
-  <div class="step-dot" onclick="goToSection(5)">6</div>
-  <div class="step-dot" onclick="goToSection(6)">7</div>
+<div class="progress-bar">
+  <div class="progress-inner">
+    <div class="step-group"><div class="step-dot active" onclick="goToSection(0)">1</div><div class="step-label">פרטים</div></div>
+    <div class="step-line"></div>
+    <div class="step-group"><div class="step-dot" onclick="goToSection(1)">2</div><div class="step-label">בנקים</div></div>
+    <div class="step-line"></div>
+    <div class="step-group"><div class="step-dot" onclick="goToSection(2)">3</div><div class="step-label">נדל"ן</div></div>
+    <div class="step-line"></div>
+    <div class="step-group"><div class="step-dot" onclick="goToSection(3)">4</div><div class="step-label">רכבים</div></div>
+    <div class="step-line"></div>
+    <div class="step-group"><div class="step-dot" onclick="goToSection(4)">5</div><div class="step-label">תכולה</div></div>
+    <div class="step-line"></div>
+    <div class="step-group"><div class="step-dot" onclick="goToSection(5)">6</div><div class="step-label">חובות</div></div>
+    <div class="step-line"></div>
+    <div class="step-group"><div class="step-dot" onclick="goToSection(6)">7</div><div class="step-label">אחר</div></div>
+  </div>
 </div>
 
 <div class="main">
-  <div class="card" style="padding: 15px; text-align: center; border-color: var(--gold);">
-    <label style="font-weight: 700;">📅 שנת המס להצהרה: </label>
-    <select id="taxYear" style="padding: 5px; font-weight: bold; border: 1px solid var(--gold); border-radius: 4px;">
+  <div class="card" style="text-align: center; border-color: var(--gold);">
+    <label>📅 שנת המס: </label>
+    <select id="taxYear" style="padding: 5px; font-weight: bold;">
       <option>2030</option><option>2029</option><option>2028</option><option>2027</option>
       <option>2026</option><option>2025</option><option selected>2024</option><option>2023</option>
     </select>
@@ -85,7 +109,7 @@
 
   <div class="section active" id="sec-0">
     <div class="card">
-      <div class="card-label">פרטי מגיש הצהרת ההון</div>
+      <div class="card-label">פרטי הלקוח</div>
       <div class="field-group">
         <div class="field"><label>שם מלא *</label><input type="text" id="name" required></div>
         <div class="field"><label>תעודת זהות *</label><input type="text" id="id_num" required></div>
@@ -100,78 +124,83 @@
       </div>
       <div class="field"><label>ילדים מתחת לגיל 18 (שמות ותאריכי לידה)</label><textarea id="children"></textarea></div>
     </div>
-    <div class="nav-buttons"><button class="btn btn-next" onclick="goToSection(1)">המשך לשלב הבא ←</button></div>
+    <div class="nav-buttons"><div></div><button class="btn btn-next" onclick="goToSection(1)">המשך ←</button></div>
   </div>
 
   <div class="section" id="sec-1">
     <div class="card">
-      <div class="card-label">חשבונות בנק (יתרות ליום 31/12)</div>
+      <div class="card-label">אישורי בנקים ויתרות 📄</div>
       <div id="bankRows"></div>
-      <button class="btn-add" onclick="addBankRow()">+ הוסף חשבון בנק</button>
+      <button class="btn-add-row" onclick="addBankRow()">+ הוסף חשבון</button>
     </div>
-    <div class="nav-buttons">
-      <button class="btn btn-prev" onclick="goToSection(0)">→ חזור</button>
-      <button class="btn btn-next" onclick="goToSection(2)">המשך ←</button>
+    <div class="card">
+      <div class="card-label">העלאת אישורי יתרות</div>
+      <div class="upload-zone">
+        <input type="file" multiple onchange="updateFileList(this, 'bankFiles')">
+        <div><strong>גרור לכאן קבצים</strong> או לחץ לבחירה</div>
+      </div>
+      <div id="bankFiles" class="file-list"></div>
     </div>
+    <div class="nav-buttons"><button class="btn btn-prev" onclick="goToSection(0)">→ חזור</button><button class="btn btn-next" onclick="goToSection(2)">המשך ←</button></div>
   </div>
 
   <div class="section" id="sec-2">
     <div class="card">
-      <div class="card-label">נדל"ן ונכסי מקרקעין (דירות, קרקעות)</div>
+      <div class="card-label">נדל"ן ונכסי מקרקעין 🏠</div>
       <div id="reRows"></div>
-      <button class="btn-add" onclick="addReRow()">+ הוסף נכס</button>
+      <button class="btn-add-row" onclick="addReRow()">+ הוסף נכס</button>
     </div>
-    <div class="nav-buttons">
-      <button class="btn btn-prev" onclick="goToSection(1)">→ חזור</button>
-      <button class="btn btn-next" onclick="goToSection(3)">המשך ←</button>
+    <div class="card">
+      <div class="card-label">העלאת חוזי רכישה</div>
+      <div class="upload-zone"><input type="file" multiple onchange="updateFileList(this, 'reFiles')"><div>לחץ להעלאת מסמכי נדל"ן</div></div>
+      <div id="reFiles" class="file-list"></div>
     </div>
+    <div class="nav-buttons"><button class="btn btn-prev" onclick="goToSection(1)">→ חזור</button><button class="btn btn-next" onclick="goToSection(3)">המשך ←</button></div>
   </div>
 
   <div class="section" id="sec-3">
     <div class="card">
-      <div class="card-label">כלי רכב (כולל מספר רישוי)</div>
+      <div class="card-label">כלי רכב 🚗</div>
       <div id="vRows"></div>
-      <button class="btn-add" onclick="addVRow()">+ הוסף רכב</button>
+      <button class="btn-add-row" onclick="addVRow()">+ הוסף רכב</button>
     </div>
-    <div class="nav-buttons">
-      <button class="btn btn-prev" onclick="goToSection(2)">→ חזור</button>
-      <button class="btn btn-next" onclick="goToSection(4)">המשך ←</button>
+    <div class="card">
+      <div class="card-label">מסמכי רכב</div>
+      <div class="upload-zone"><input type="file" multiple onchange="updateFileList(this, 'vFiles')"><div>לחץ להעלאת רישיונות/חוזים</div></div>
+      <div id="vFiles" class="file-list"></div>
     </div>
+    <div class="nav-buttons"><button class="btn btn-prev" onclick="goToSection(2)">→ חזור</button><button class="btn btn-next" onclick="goToSection(4)">המשך ←</button></div>
   </div>
 
   <div class="section" id="sec-4">
     <div class="card">
-      <div class="card-label">תכולת בית (תכשיטים, אמנות, ריהוט יוקרתי)</div>
+      <div class="card-label">תכולת בית (יקרי ערך) 📋</div>
       <div id="cRows"></div>
-      <button class="btn-add" onclick="addCRow()">+ הוסף פריט</button>
+      <button class="btn-add-row" onclick="addCRow()">+ הוסף פריט</button>
     </div>
-    <div class="nav-buttons">
-      <button class="btn btn-prev" onclick="goToSection(3)">→ חזור</button>
-      <button class="btn btn-next" onclick="goToSection(5)">המשך ←</button>
-    </div>
+    <div class="nav-buttons"><button class="btn btn-prev" onclick="goToSection(3)">→ חזור</button><button class="btn btn-next" onclick="goToSection(5)">המשך ←</button></div>
   </div>
 
   <div class="section" id="sec-5">
     <div class="card">
-      <div class="card-label">התחייבויות, חובות והלוואות</div>
+      <div class="card-label">התחייבויות והלוואות 📋</div>
       <div id="dRows"></div>
-      <button class="btn-add" onclick="addDRow()">+ הוסף חוב</button>
+      <button class="btn-add-row" onclick="addDRow()">+ הוסף חוב</button>
     </div>
-    <div class="nav-buttons">
-      <button class="btn btn-prev" onclick="goToSection(4)">→ חזור</button>
-      <button class="btn btn-next" onclick="goToSection(6)">המשך ←</button>
+    <div class="card">
+      <div class="card-label">אישורי הלוואות</div>
+      <div class="upload-zone"><input type="file" multiple onchange="updateFileList(this, 'dFiles')"><div>לחץ להעלאת אישורים</div></div>
+      <div id="dFiles" class="file-list"></div>
     </div>
+    <div class="nav-buttons"><button class="btn btn-prev" onclick="goToSection(4)">→ חזור</button><button class="btn btn-next" onclick="goToSection(6)">המשך ←</button></div>
   </div>
 
   <div class="section" id="sec-6">
     <div class="card">
-      <div class="card-label">רכוש ונכסים אחרים / הערות כלליות</div>
+      <div class="card-label">רכוש אחר והערות סופיות 📁</div>
       <div id="oRows"></div>
-      <button class="btn-add" onclick="addORow()">+ הוסף רכוש אחר</button>
-      <div class="field" style="margin-top: 20px;">
-        <label>הערות סופיות</label>
-        <textarea id="notes" placeholder="כל מידע נוסף שחשוב לציין..." style="min-height: 100px;"></textarea>
-      </div>
+      <button class="btn-add-row" onclick="addORow()">+ הוסף פריט</button>
+      <div class="field" style="margin-top:20px;"><label>הערות כלליות</label><textarea id="notes" placeholder="כל מידע נוסף..."></textarea></div>
     </div>
     <div class="nav-buttons">
       <button class="btn btn-prev" onclick="goToSection(5)">→ חזור</button>
@@ -179,11 +208,11 @@
     </div>
   </div>
 
-  <div id="successScreen" style="display:none; text-align:center; padding:60px 20px;">
-    <div style="font-size:70px; margin-bottom: 20px;">✅</div>
-    <h2 style="color: var(--deep);">הטופס נשלח בהצלחה!</h2>
-    <p style="color: var(--muted); margin-top: 10px;">הנתונים הועברו לרואה החשבון ומעובדים כעת בגיליון.</p>
-    <button class="btn btn-next" style="margin-top: 30px; max-width: 200px;" onclick="location.reload()">שלח טופס נוסף</button>
+  <div id="successScreen" style="display:none; text-align:center; padding:60px;">
+    <div style="font-size:70px;">✅</div>
+    <h2>הטופס נשלח בהצלחה!</h2>
+    <p>תודה, הנתונים הועברו לרואה החשבון.</p>
+    <button class="btn btn-next" style="margin-top:20px;" onclick="location.reload()">שלח טופס חדש</button>
   </div>
 </div>
 
@@ -195,43 +224,53 @@ function goToSection(n) {
   document.getElementById('sec-' + n).classList.add('active');
   document.querySelectorAll('.step-dot').forEach((d, i) => {
     d.classList.toggle('active', i === n);
+    d.classList.toggle('done', i < n);
   });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// פונקציות להוספת שורות דינמיות
+// תבניות שורות
 function addBankRow() {
   const div = document.createElement('div'); div.className = 'repeat-row'; div.style.gridTemplateColumns = '1fr 1fr 1fr auto';
-  div.innerHTML = `<input type="text" placeholder="בנק" class="b-name"><input type="text" placeholder="חשבון" class="b-acc"><input type="number" placeholder="יתרה" class="b-bal"><button class="btn-remove" onclick="this.parentElement.remove()">×</button>`;
+  div.innerHTML = `<input type="text" placeholder="בנק" class="b-name"><input type="text" placeholder="חשבון" class="b-acc"><input type="number" placeholder="יתרה" class="b-bal"><button class="btn-remove-row" onclick="this.parentElement.remove()">×</button>`;
   document.getElementById('bankRows').appendChild(div);
 }
 function addReRow() {
   const div = document.createElement('div'); div.className = 'repeat-row'; div.style.gridTemplateColumns = '2fr 1fr 1fr auto';
-  div.innerHTML = `<input type="text" placeholder="כתובת הנכס" class="re-addr"><input type="number" placeholder="שנת רכישה" class="re-year"><input type="number" placeholder="עלות" class="re-cost"><button class="btn-remove" onclick="this.parentElement.remove()">×</button>`;
+  div.innerHTML = `<input type="text" placeholder="כתובת" class="re-addr"><input type="number" placeholder="שנה" class="re-year"><input type="number" placeholder="עלות" class="re-cost"><button class="btn-remove-row" onclick="this.parentElement.remove()">×</button>`;
   document.getElementById('reRows').appendChild(div);
 }
 function addVRow() {
   const div = document.createElement('div'); div.className = 'repeat-row'; div.style.gridTemplateColumns = '1fr 1fr 1fr auto';
-  div.innerHTML = `<input type="text" placeholder="דגם רכב" class="v-model"><input type="text" placeholder="מספר רישוי" class="v-plate"><input type="number" placeholder="עלות רכישה" class="v-cost"><button class="btn-remove" onclick="this.parentElement.remove()">×</button>`;
+  div.innerHTML = `<input type="text" placeholder="דגם" class="v-model"><input type="text" placeholder="מספר רישוי" class="v-plate"><input type="number" placeholder="עלות" class="v-cost"><button class="btn-remove-row" onclick="this.parentElement.remove()">×</button>`;
   document.getElementById('vRows').appendChild(div);
 }
 function addCRow() {
   const div = document.createElement('div'); div.className = 'repeat-row'; div.style.gridTemplateColumns = '2fr 1fr auto';
-  div.innerHTML = `<input type="text" placeholder="תיאור הפריט" class="c-desc"><input type="number" placeholder="שווי מוערך" class="c-val"><button class="btn-remove" onclick="this.parentElement.remove()">×</button>`;
+  div.innerHTML = `<input type="text" placeholder="פריט" class="c-desc"><input type="number" placeholder="שווי" class="c-val"><button class="btn-remove-row" onclick="this.parentElement.remove()">×</button>`;
   document.getElementById('cRows').appendChild(div);
 }
 function addDRow() {
   const div = document.createElement('div'); div.className = 'repeat-row'; div.style.gridTemplateColumns = '1fr 1fr 1fr auto';
-  div.innerHTML = `<input type="text" placeholder="מלווה/בנק" class="d-lender"><input type="text" placeholder="סוג חוב" class="d-type"><input type="number" placeholder="יתרת חוב" class="d-bal"><button class="btn-remove" onclick="this.parentElement.remove()">×</button>`;
+  div.innerHTML = `<input type="text" placeholder="מלווה" class="d-lender"><input type="text" placeholder="סוג" class="d-type"><input type="number" placeholder="יתרה" class="d-bal"><button class="btn-remove-row" onclick="this.parentElement.remove()">×</button>`;
   document.getElementById('dRows').appendChild(div);
 }
 function addORow() {
   const div = document.createElement('div'); div.className = 'repeat-row'; div.style.gridTemplateColumns = '2fr 1fr auto';
-  div.innerHTML = `<input type="text" placeholder="תיאור רכוש" class="o-desc"><input type="number" placeholder="שווי" class="o-val"><button class="btn-remove" onclick="this.parentElement.remove()">×</button>`;
+  div.innerHTML = `<input type="text" placeholder="תיאור" class="o-desc"><input type="number" placeholder="שווי" class="o-val"><button class="btn-remove-row" onclick="this.parentElement.remove()">×</button>`;
   document.getElementById('oRows').appendChild(div);
 }
 
-// איסוף נתונים
+function updateFileList(input, listId) {
+  const list = document.getElementById(listId);
+  list.innerHTML = "";
+  Array.from(input.files).forEach(f => {
+    const item = document.createElement('div'); item.className = 'file-item';
+    item.innerHTML = `<span>📎 ${f.name}</span><span>${(f.size/1024).toFixed(0)}KB</span>`;
+    list.appendChild(item);
+  });
+}
+
 function collectAllData() {
   const data = {
     taxYear: document.getElementById('taxYear').value,
@@ -245,48 +284,37 @@ function collectAllData() {
     notes: document.getElementById('notes').value,
     banks: [], realEstate: [], vehicles: [], contents: [], debts: [], other: []
   };
-
-  document.querySelectorAll('#bankRows .repeat-row').forEach(r => { data.banks.push({name: r.querySelector('.b-name').value, acc: r.querySelector('.b-acc').value, bal: r.querySelector('.b-bal').value}); });
-  document.querySelectorAll('#reRows .repeat-row').forEach(r => { data.realEstate.push({address: r.querySelector('.re-addr').value, year: r.querySelector('.re-year').value, cost: r.querySelector('.re-cost').value}); });
-  document.querySelectorAll('#vRows .repeat-row').forEach(r => { data.vehicles.push({model: r.querySelector('.v-model').value, plate: r.querySelector('.v-plate').value, cost: r.querySelector('.v-cost').value}); });
-  document.querySelectorAll('#cRows .repeat-row').forEach(r => { data.contents.push({desc: r.querySelector('.c-desc').value, val: r.querySelector('.c-val').value}); });
-  document.querySelectorAll('#dRows .repeat-row').forEach(r => { data.debts.push({lender: r.querySelector('.d-lender').value, type: r.querySelector('.d-type').value, bal: r.querySelector('.d-bal').value}); });
-  document.querySelectorAll('#oRows .repeat-row').forEach(r => { data.other.push({desc: r.querySelector('.o-desc').value, val: r.querySelector('.o-val').value}); });
-
+  document.querySelectorAll('#bankRows .repeat-row').forEach(r => data.banks.push({name: r.querySelector('.b-name').value, acc: r.querySelector('.b-acc').value, bal: r.querySelector('.b-bal').value}));
+  document.querySelectorAll('#reRows .repeat-row').forEach(r => data.realEstate.push({address: r.querySelector('.re-addr').value, year: r.querySelector('.re-year').value, cost: r.querySelector('.re-cost').value}));
+  document.querySelectorAll('#vRows .repeat-row').forEach(r => data.vehicles.push({model: r.querySelector('.v-model').value, plate: r.querySelector('.v-plate').value, cost: r.querySelector('.v-cost').value}));
+  document.querySelectorAll('#cRows .repeat-row').forEach(r => data.contents.push({desc: r.querySelector('.c-desc').value, val: r.querySelector('.c-val').value}));
+  document.querySelectorAll('#dRows .repeat-row').forEach(r => data.debts.push({lender: r.querySelector('.d-lender').value, type: r.querySelector('.d-type').value, bal: r.querySelector('.d-bal').value}));
+  document.querySelectorAll('#oRows .repeat-row').forEach(r => data.other.push({desc: r.querySelector('.o-desc').value, val: r.querySelector('.o-val').value}));
   return data;
 }
 
-// שליחה
 async function submitForm() {
   if (!document.getElementById('name').value) { alert('נא למלא שם בשלב הראשון'); goToSection(0); return; }
-
   document.getElementById('loadingOverlay').classList.add('active');
-
   try {
     await fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      cache: 'no-cache',
+      method: 'POST', mode: 'no-cors', cache: 'no-cache',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(collectAllData())
     });
-
     document.getElementById('loadingOverlay').classList.remove('active');
     document.querySelector('.main').style.display = 'none';
-    document.getElementById('progressBar').style.display = 'none';
+    document.querySelector('.progress-bar').style.display = 'none';
     document.getElementById('successScreen').style.display = 'block';
     window.scrollTo(0,0);
-
   } catch (error) {
     document.getElementById('loadingOverlay').classList.remove('active');
     alert('שגיאה בשליחה: ' + error.message);
   }
 }
 
-// אתחול שורות ראשונות
-window.onload = () => {
-  addBankRow(); addReRow(); addVRow(); addCRow(); addDRow(); addORow();
-};
+// אתחול
+window.onload = () => { addBankRow(); addReRow(); addVRow(); addCRow(); addDRow(); addORow(); };
 </script>
 </body>
 </html>
